@@ -1,0 +1,146 @@
+<span openDialog></span>
+<h2 mat-dialog-title>
+  {{ titulo }}
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="dialogRef.close()"
+    [tabIndex]="-1"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</h2>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="form-row">
+    <div class="col">
+      <mat-form-field>
+        <input
+          matInput
+          formControlName="nombre1"
+          placeholder="Nombre1 *"
+          autocomplete="off"
+          maxlength="13"
+        />
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col">
+      <mat-form-field>
+        <input
+          matInput
+          formControlName="nombre2"
+          placeholder="Nombre2"
+          autocomplete="off"
+          maxlength="13"
+        />
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col">
+      <mat-form-field>
+        <input
+          matInput
+          formControlName="nombre3"
+          placeholder="Nombre3"
+          maxlength="100"
+          autocomplete="off"
+          maxlength="13"
+        />
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col">
+      <mat-form-field>
+        <input
+          matInput
+          formControlName="nombre4"
+          placeholder="Nombre4"
+          maxlength="100"
+          autocomplete="off"
+          maxlength="13"
+        />
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col">
+      <mat-form-field>
+        <input
+          matInput
+          formControlName="nombre5"
+          placeholder="Nombre5"
+          maxlength="100"
+          autocomplete="off"
+          maxlength="13"
+        />
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col">
+      <mat-form-field>
+        <input
+          matInput
+          formControlName="nombre6"
+          placeholder="Nombre6"
+          maxlength="100"
+          autocomplete="off"
+          maxlength="10"
+        />
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="form-row" *ngIf="data.tipo == 'edit'">
+    <div class="col">
+      <mat-form-field>
+        <mat-select
+          id="nIndicador"
+          name="nIndicador"
+          class="select-css"
+          formControlName="nIndicador"
+          placeholder="Estado"
+          style="
+            border: 1;
+            font-weight: 400;
+            line-height: 1.125;
+            font-family: Roboto, 'Helvetica Neue', sans-serif;
+            color: gray;
+          "
+        >
+          <mat-option
+            *ngFor="let parametro of this.listParametroCombo"
+            [value]="parametro.nCodValor"
+            >{{ parametro.vDescripcion }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="col">
+      <div class="badge bg-danger text-wrap text-white">
+        * Datos Obligatorios
+      </div>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="col text-center">
+      <button mat-flat-button color="primary" type="submit" *ngIf="habilitar">
+        Guardar
+      </button>
+      <br />
+    </div>
+  </div>
+  <div *ngIf="error" class="form-row mt-3">
+    <div class="col text-center">
+      <div class="alert alert-danger">{{ error }}</div>
+    </div>
+  </div>
+</form>

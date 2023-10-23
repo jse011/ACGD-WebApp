@@ -1,0 +1,28 @@
+<div class="chartjs-container">
+  <h2 mat-dialog-title>
+    TOMA DE PRESIÓN CON DATALOGGER SECTOR <a style="color:hsl(201, 100%, 33%);"> {{this.nSector}}</a>
+    <br><br><br>
+    ZONA DE INFLUENCIA ALTA, MEDIA Y BAJA de:
+    <br>
+    <a style="color:hsl(201, 100%, 33%);"> {{this.vFechaIni}} </a> AL  <a style="color:hsl(201, 100%, 33%);">{{this.vFechaFin}} </a>   
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="dialogRef.close()"
+      [tabIndex]="-1"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </h2>
+  <canvas
+    baseChart
+    [datasets]="barChartData"
+    [labels]="barChartLabels"
+    [options]="barChartOptions"
+    [plugins]="barChartPlugins"
+    [legend]="barChartLegend"
+    [type]="barChartType"
+  >
+  </canvas>
+</div>

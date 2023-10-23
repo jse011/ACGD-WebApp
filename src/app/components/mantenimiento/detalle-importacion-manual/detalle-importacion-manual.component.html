@@ -1,0 +1,154 @@
+<span openDialog></span>
+<h2 mat-dialog-title>
+  {{ titulo }}
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="dialogRef.close()"
+    [tabIndex]="-1"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</h2>
+<form>
+  <div class="form-row">
+    <div class="col-6 row">
+      <div class="col-6">ID</div>
+      <div class="col-6">{{ id }}</div>
+    </div>
+    <div class="col-6 row">
+      <div class="col-6">Sector</div>
+      <div class="col-6">{{ sector }}</div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-6 row">
+      <div class="col-6">Datalogger</div>
+      <div class="col-6">{{ datalogger }}</div>
+    </div>
+    <div class="col-6 row">
+      <div class="col-6">M&aacute;ximo</div>
+      <div class="col-6">{{ maximo }}</div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-6 row">
+      <div class="col-6">&Aacute;rea</div>
+      <div class="col-6">{{ area }}</div>
+    </div>
+    <div class="col-6 row">
+      <div class="col-6">M&iacute;nimo</div>
+      <div class="col-6">{{ minimo }}</div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-6 row">
+      <div class="col-6">Promedio</div>
+      <div class="col-6">{{ promedio }}</div>
+    </div>
+
+    <div class="col-6 row">
+      <div class="col-6">Fecha</div>
+      <div class="col-6">{{ fecha }}</div>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="col-6 row">
+      <div class="col-6">Estado</div>
+      <div class="col-6">{{ estado }}</div>
+    </div>
+
+
+  </div>
+
+  <div class="table-responsive" id="htmlData">
+    <table
+      id="tabla-parametros"
+      name="tabla-parametros"
+      class="table table-hover issue-tracker"
+      [style.width]="mobileQuery.matches ? '900px' : '100%'"
+    >
+      <thead class="table-head">
+        <tr>
+          <th [width]="widthHora" style="border: none">HORA</th>
+          <th [width]="widthMedicion" style="border: none">
+            {{ titleParametro1 }}
+          </th>
+          <th
+            [width]="widthMedicion"
+            style="border: none"
+            *ngIf="mostrarVC || mostrarVISRCISR"
+          >
+            {{ titleParametro2 }}
+          </th>
+          <th
+            [width]="widthMedicion"
+            style="border: none"
+            *ngIf="mostrarVISRCISR"
+          >
+            MEDICI&Oacute;N 3
+          </th>
+          <th
+            [width]="widthMedicion"
+            style="border: none"
+            *ngIf="mostrarVISRCISR"
+          >
+            MEDICI&Oacute;N 4
+          </th>
+          <th
+            [width]="widthMedicion"
+            style="border: none"
+            *ngIf="mostrarVISRCISR"
+          >
+            MEDICI&Oacute;N 5
+          </th>
+          <th
+            [width]="widthMedicion"
+            style="border: none"
+            *ngIf="mostrarVISRCISR"
+          >
+            MEDICI&Oacute;N 6
+          </th>
+          <!--<th width="33.3%" style="border: none">ESTADO</th>-->
+        </tr>
+      </thead>
+      <tbody class="table-body">
+        <tr *ngFor="let dato of itemsPagination; let i = index">
+          <td [width]="widthHora">{{ dato.hora | slice:0:5 }}</td>
+          <td [width]="widthMedicion">{{ dato.parametro1 | number:'1.4-4' }}</td>
+          <td [width]="widthMedicion" *ngIf="mostrarVC || mostrarVISRCISR">
+            {{ dato.parametro2 | number:'1.4-4' }}
+          </td>
+          <td [width]="widthMedicion" *ngIf="mostrarVISRCISR">
+            {{ dato.parametro3 | number:'1.4-4' }}
+          </td>
+          <td [width]="widthMedicion" *ngIf="mostrarVISRCISR">
+            {{ dato.parametro4 | number:'1.4-4' }}
+          </td>
+          <td [width]="widthMedicion" *ngIf="mostrarVISRCISR">
+            {{ dato.parametro5 | number:'1.4-4' }}
+          </td>
+          <td [width]="widthMedicion" *ngIf="mostrarVISRCISR">
+            {{ dato.parametro6 | number:'1.4-4'}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <app-pagination
+    (goPage)="goToPage($event)"
+    (goNext)="onNext()"
+    (goPrev)="onPrev()"
+    [pagesToShow]="6"
+    [page]="page"
+    [perPage]="limit"
+    [count]="total"
+  ></app-pagination>
+  <div *ngIf="error" class="form-row mt-3">
+    <div class="col text-center">
+      <div class="alert alert-danger">{{ error }}</div>
+    </div>
+  </div>
+</form>

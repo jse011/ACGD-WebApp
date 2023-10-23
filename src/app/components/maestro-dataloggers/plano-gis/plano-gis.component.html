@@ -1,0 +1,10 @@
+<span openDialog></span>
+<h2 mat-dialog-title>
+  PLANO GIS
+  <button type="button" class="close" aria-label="Close" (click)="dialogRef.close()" [tabIndex]="-1">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</h2>
+
+<iframe #iframe id="visor" style="visibility:visible" [src]="urls" style="width: 100%" height="680">
+</iframe>

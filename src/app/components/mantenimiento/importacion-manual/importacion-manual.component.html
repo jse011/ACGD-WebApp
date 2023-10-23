@@ -1,0 +1,295 @@
+<div class="suministro">
+  <span openDialog></span>  
+  <h2 style="color: hsl(201, 100%, 33%);"><strong>IMPORTACI&Oacute;N MANUAL
+  </strong> </h2>
+  <div id="detalleSuministro">
+    <div id="busqueda">
+      <div>
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                <form>
+                  <div class="row">
+                    <div class="col-3">
+                      <mat-form-field class="nro-monto w-100">
+                        <input
+                          name="dFec"
+                          matInput
+                          [formControl]="dFec"
+                          [matDatepicker]="pickerFecinic"
+                          (focus)="pickerFecinic.open()"
+                          placeholder="Fecha: mm/aaaa"
+                          readonly
+                          autocomplete="off"
+                        />
+                        <button
+                          mat-button
+                          matSuffix
+                          mat-icon-button
+                          type="button"
+                          (click)="form.controls['dFec'].setValue('')"
+                        >
+                          <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="pickerFecinic"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker
+                          #pickerFecinic
+                          startView="multi-year"
+                          (yearSelected)="chosenYearHandler($event, 'fi')"
+                          (monthSelected)="
+                            chosenMonthHandler($event, pickerFecinic, 'fi')
+                          "
+                        ></mat-datepicker>
+                      </mat-form-field>
+                    </div>                   
+                    <div class="col-6">
+                      <mat-form-field>
+                        <mat-select
+                          #matSelect
+                          id="codeParametro"
+                          name="codeParametro"
+                          class="select-css"
+                          placeholder="Parámetro "
+                          [(ngModel)]="codeParametro"
+                          style="
+                            border: 1;
+                            font-weight: 400;
+                            line-height: 1.125;
+                            font-family: Roboto, 'Helvetica Neue', sans-serif;
+                            color: gray;
+                          "
+                          #testid
+                          [matTooltip]="matSelect.triggerValue"
+                        >
+                          <mat-option
+                            *ngFor="let parametro of parametrosCombo"
+                            [value]="parametro.nNumreg"
+                            matTooltip="{{ parametro.vDescripcion }}"
+                            >{{ parametro.vDescripcion }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                      <mat-form-field>
+                        <mat-select
+                          id="codeDatalogger"
+                          name="codeDatalogger"
+                          class="select-css"
+                          placeholder="Código Datalogger"
+                          [(ngModel)]="codeDatalogger"
+                          style="
+                            border: 1;
+                            font-weight: 400;
+                            line-height: 1.125;
+                            font-family: Roboto, 'Helvetica Neue', sans-serif;
+                            color: gray;
+                          ">
+                          <mat-option
+                            *ngFor="let datalogger of dataloggerCombo"
+                            [value]="datalogger.nCodigo"
+                            >{{ datalogger.vDescripcion }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </form>
+              </td>
+              <td style="width: 300px">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    (click)="buscar()"
+                  >
+                    Buscar
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-success"
+                    (click)="seleccionarExcel()"
+                  >
+                    Seleccionar Excel
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    (click)="cancelarImportacion()"
+                    [disabled]="deshabilitarBtnEliminar"
+                  >
+                    Eliminar Registro(s) Seleccionado(s)
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="header-container col">
+    <div class="table-responsive" id="htmlData">
+      <table
+        id="tabla-parametros"
+        name="tabla-parametros"
+        class="table table-hover issue-tracker"
+        [style.width]="mobileQuery.matches ? '900px' : '100%'"
+      >
+        <thead class="table-head">
+          <tr>
+            <th width="0%" style="border: none" *ngIf="total > 0">
+              <label class="container">
+                <input
+                  (change)="checkAll()"
+                  [(ngModel)]="checkedAll"
+                  type="checkbox"
+                />
+                <span class="checkmark"></span>
+              </label>
+            </th>
+            <th width="9%" style="border: none" class="text-center">FECHA</th>
+            <th width="10%" style="border: none" class="text-center">
+              DATALOGGER
+            </th>
+            <th width="8%" style="border: none" class="text-center">
+              PARAMETRO
+            </th>
+            <th width="6%" style="border: none" class="text-center">
+              M&Iacute;NIMO
+            </th>
+            <th width="6%" style="border: none" class="text-center">
+              M&Aacute;XIMO
+            </th>
+            <th width="6%" style="border: none" class="text-center">
+              PROMEDIO
+            </th>
+            <th width="6%" style="border: none" class="text-center">
+              CANTIDAD
+            </th>
+            <th width="6%" style="border: none" class="text-center">ESTADO</th>
+            <th width="46%" style="border: none">OBSERVACI&Oacute;N</th>
+            <th style="border: none"></th>
+          </tr>
+        </thead>
+        <tbody class="table-body">
+          <tr
+            *ngFor="let dato of itemsPagination; let i = index"
+            (click)="selectRow(i, dato)"
+            [ngClass]="dato.id === -1 ? 'alert-danger' : ''"
+          >
+            <td width="0%" style="vertical-align: middle">
+              <label class="container" *ngIf="dato.id > -1 && dato.id != 0">
+                <input
+                  (change)="OnCheck($event, i, dato)"
+                  [(ngModel)]="dato.select"
+                  type="checkbox"
+                  [disabled]="habilitarCheck(dato)"
+                />
+                <span class="checkmark"></span>
+              </label>
+            </td>
+            <td width="9%" class="text-center">{{ dato.fecha }}</td>
+            <td width="10%" class="text-center">{{ dato.datalogger }}</td>
+            <td width="8%" class="text-center">{{ dato.descParametro }}</td>
+            <td width="6%" class="text-center">{{ dato.min }}</td>
+            <td width="6%" class="text-center">{{ dato.max }}</td>
+            <td width="6%" class="text-center">{{ dato.prom }}</td>
+            <td width="6%" class="text-center">{{ dato.cantidadRegistros }}</td>
+            <!--<td width="6%"><span class="label label-primary">{{ dato.estado }}</span> </td>-->
+            <td width="6%" class="text-center" [ngSwitch]="dato.estado">
+              <span *ngSwitchCase="'INGRESADO'" class="label label-success"
+                >&nbsp;Ingresado&nbsp;&nbsp;</span
+              >
+              <span *ngSwitchCase="'VALIDADO'" class="label label-primary"
+                >&nbsp;&nbsp;&nbsp;Validado&nbsp;&nbsp;&nbsp;</span
+              >
+            </td>
+            <td width="46%">
+              <span
+                class="label label-warning"
+                *ngIf="validarDatoNuloVacio(dato.observacion)"
+                >{{ dato.observacion }}</span
+              >
+            </td>
+            <td>
+              <button
+                *ngIf="dato.id != -1"
+                [matMenuTriggerFor]="menu"
+                mat-icon-button
+                class="icon"
+                [tabIndex]="-1"
+                style="float: right"
+              >
+                <img src="assets/img/icon-menu.svg" width="4px" />
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <app-pagination
+      (goPage)="goToPage($event)"
+      (goNext)="onNext()"
+      (goPrev)="onPrev()"
+      [pagesToShow]="6"
+      [page]="page"
+      [perPage]="limit"
+      [count]="total"
+    ></app-pagination>
+  </div>
+
+  <div
+    class="accordion accordion-flush"
+    id="accordionFlushExample"
+    style="bottom: 0; position: fixed; float: right; right: 2%"
+    *ngIf="mostrarErroresValidacionCarga"
+  >
+    <div class="accordion-item bg-danger">
+      <h2 class="accordion-header" id="flush-headingOne">
+        <button
+          class="accordion-button collapsed bg-danger text-white font-weight-bold"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#flush-collapseOne"
+          aria-expanded="false"
+          aria-controls="flush-collapseOne"
+        >
+          <span class="badge rounded-pill bg-primary">
+            {{ listErroresCargaResponse.length }}</span
+          >
+          &nbsp; ERRORES DE CARGA
+        </button>
+      </h2>
+      <div
+        id="flush-collapseOne"
+        class="accordion-collapse collapse scroll"
+        aria-labelledby="flush-headingOne"
+        data-bs-parent="#accordionFlushExample"
+      >
+        <ul class="list-group">
+          <li
+            class="list-group-item bg-danger text-white"
+            *ngFor="let dato of listErroresCargaResponse; let i = index"
+          >
+            {{ concatFilaError(dato) }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<mat-menu #menu="matMenu">
+  <ng-template matMenuContent>
+    <a mat-menu-item (click)="verDetalle()">
+      <img src="assets/img/icon-eye-open.svg" />
+      <span class="receipt-menu">Ver Detalle</span>
+    </a>
+  </ng-template>
+</mat-menu>

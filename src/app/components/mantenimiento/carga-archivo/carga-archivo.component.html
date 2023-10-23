@@ -1,0 +1,59 @@
+<span openDialog></span>
+<h2>
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="closeDialog()"
+    [tabIndex]="-1"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</h2>
+<form [formGroup]="form">
+  <div class="container" style="font-size: 14px; height:auto;">
+    <div class="text-center">
+      <button (click)="fileInput.click()" class="pagar-recibos" type="button" [disabled]="deshabilitarBtnCarga">
+        <span aria-hidden="true">{{ boton_seleccionar_modal }}</span>
+      </button>
+    </div>
+    <input
+      #fileInput
+      type="file"
+      hidden
+      multiple
+      (change)="selectFiles($event)"
+    />
+    <hr style="color: black" />
+    <div
+      class="row justify-content-md-center"
+      *ngFor="let file of this.fileList; let index = index"
+      style="overflow-wrap: break-word"
+    >
+      <div class="col-md-7" *ngIf="file.name">
+        {{ file.name }}
+      </div>
+      <div class="col-md-3" *ngIf="listOfFiles">
+        {{ listOfFiles[index] }}
+      </div>
+      <div class="col-md-2">
+        <button
+          (click)="removeSelectedFile(index)"
+          style="border: none; background: none"
+        >
+          <span *ngIf="file.name" style="color: red">{{
+            boton_eliminar_modal
+          }}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col text-center">
+      <button mat-flat-button color="primary" (click)="doAction()">
+        {{ boton_subir_modal }}
+      </button>
+    </div>
+  </div>
+</form>

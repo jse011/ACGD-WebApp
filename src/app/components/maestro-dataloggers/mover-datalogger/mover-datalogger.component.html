@@ -1,0 +1,151 @@
+<span openDialog></span>
+<h2 mat-dialog-title>
+  {{ titulo }}
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="dialogRef.close()"
+    [tabIndex]="-1"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</h2>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="form-row">
+    <div class="col">
+      <mat-form-field>
+        <input
+          matInput
+          formControlName="vCodarea"
+          placeholder="Area"
+          autocomplete="off"
+        />
+      </mat-form-field>
+    </div>
+    <div class="col">
+      <mat-form-field>
+        <input
+          matInput
+          formControlName="nCoddat"
+          placeholder="C&oacute;digo"
+          autocomplete="off"
+        />
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col">
+      <mat-form-field>
+        <input
+          matInput
+          formControlName="vDesdistrito"
+          placeholder="Distrito"
+          autocomplete="off"
+        />
+      </mat-form-field>
+    </div>
+    <div class="col">
+      <mat-form-field>
+        <input
+          matInput
+          formControlName="nCodseg"
+          placeholder="C&oacute;digo Sedapal"
+          autocomplete="off"
+        />
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col">
+      <mat-form-field>
+        <mat-select
+          id="nSector"
+          name="nSector"
+          formControlName="nSector"
+          class="select-css"
+          placeholder="Sector * "                              
+          style="
+            border: 1;
+            font-weight: 400;
+            line-height: 1.125;
+            font-family: Roboto, 'Helvetica Neue', sans-serif;
+            color: gray;">                        
+          <mat-option *ngFor="let sector of this.listSectorCombo" [value]="sector.nCodigo">
+            {{ sector.vDescripcion }}                            
+            </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+      <!--<mat-form-field>
+        <input
+          matInput
+          formControlName="nSector"
+          placeholder="Sector *"
+          autocomplete="off"
+          maxlength="4"
+        />
+      </mat-form-field>-->
+    </div>
+    <div class="col">
+      <mat-form-field>
+        <mat-select
+          id="nZona"
+          name="nZona"
+          class="select-css"
+          formControlName="nZona"
+          placeholder="Zona *"
+          style="
+            border: 1;
+            font-weight: 400;
+            line-height: 1.125;
+            font-family: Roboto, 'Helvetica Neue', sans-serif;
+            color: gray;
+          "
+        >
+          <mat-option
+            *ngFor="let zona of this.listZonaCombo"
+            [value]="zona.nCodigo"
+            >{{ zona.vDescripcion }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col">
+      <mat-form-field>
+        <input
+          matInput
+          formControlName="vDir"
+          placeholder="Direcci&oacute;n *"
+          maxlength="100"
+          autocomplete="off"
+          maxlength="200"
+        />
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="col">
+      <div class="badge bg-danger text-wrap text-white">
+        * Datos Obligatorios
+      </div>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="col text-center">
+      <!--*ngIf="habilitar"-->
+      <button mat-flat-button color="primary" type="submit">Guardar</button>
+      <br />
+    </div>
+  </div>
+  <div *ngIf="error" class="form-row mt-3">
+    <div class="col text-center">
+      <div class="alert alert-danger">{{ error }}</div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,139 @@
+<!--row-->
+<main class="">
+  <span openDialog></span>
+  <div class="ocv-container">
+    <app-header (Toggler)="toggle(snav)"></app-header>
+
+    <mat-sidenav-container autosize class="ocv-sidenav-container">
+      <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" opened="{{ !mobileQuery.matches }}"
+        class="ocv-sidenav" [style.width]="showFiller ? '250px' : '67px'">
+        <mat-nav-list>
+          <div *ngIf="!mobileQuery.matches" style="width: 100%; display: flex"
+            [align]="showFiller ? 'right' : 'center'">
+            <mat-icon mat-list-icon (click)="closeMenu(showFiller, panelSubOpcion)"
+              [class]="showFiller ? 'icon-menu' : 'icon-menu-min'">
+              {{ showFiller ? "clear" : "menu" }}
+            </mat-icon>
+          </div>
+          <div routerLink="/inicio" [routerLinkActive]="['active-menu']" [class.link-menu]="showFiller"
+            [class.link-menu-min]="!showFiller">
+            <img [class]="showFiller ? 'menu-icon-svg' : 'menu-icon-svg-min'" src="assets/img/home-solid.svg" />
+            <span class="text-icon" *ngIf="showFiller">Inicio</span>
+          </div>
+
+          <!--SECURITY SED-FON-070-->
+          <ng-template [ngIf]="checkPermission('/modulo-maestro')">
+            <mat-expansion-panel [class.mat-elevation-z0]="true" [class.nav-background]="true" #panelSubOpcion dense>
+              <mat-expansion-panel-header [class.link-menu]="showFiller" [class.link-menu-min]="!showFiller"
+                [routerLinkActive]="['active-menu']">
+                <img [class]="
+                    showFiller ? 'menu-icon-svg' : 'menu-icon-svg-min-subop'
+                  " src="assets/img/link-solid.svg" />
+                <span class="text-icon" *ngIf="showFiller">M&oacute;dulo Maestro</span>
+              </mat-expansion-panel-header>
+
+              <mat-nav-list dense>
+                <ng-template [ngIf]="checkPermission('/modulo-maestro/parametros')">
+                  <a mat-list-item [routerLink]="['/maestro/parametro']">
+                    <img [class]="
+                        showFiller ? 'menu-icon-svg' : 'menu-icon-svg-min'
+                      " src="assets/img/notes-svgrepo-com.svg" /><span class="text-icon"
+                      *ngIf="showFiller">Par&aacute;metro</span></a>
+                </ng-template>
+
+                <ng-template [ngIf]="checkPermission('/modulo-maestro/dataloggers')">
+                  <a mat-list-item [routerLink]="['/maestro/dataloggers']"><img [class]="
+                        showFiller ? 'menu-icon-svg' : 'menu-icon-svg-min'
+                      " src="assets/img/calculate-svgrepo-com.svg" /><span class="text-icon"
+                      *ngIf="showFiller">Dataloggers</span></a>
+                </ng-template>
+              </mat-nav-list>
+            </mat-expansion-panel>
+          </ng-template>
+          <!--SECURITY SED-FON-070-->
+
+          <!--INICIO SECURITY SED-FON-070 MODULO DE MANTENIMIENTO-->
+          <ng-template [ngIf]="checkPermission('/modulo-mantenimiento')" #panelSubOpcion>            
+            <mat-expansion-panel [class.mat-elevation-z0]="true" [class.nav-background]="true" #panelSubOpcion dense>
+              <mat-expansion-panel-header [class.link-menu]="showFiller" [class.link-menu-min]="!showFiller"
+                [routerLinkActive]="['active-menu']">
+                <img [class]="
+                    showFiller ? 'menu-icon-svg' : 'menu-icon-svg-min-subop'
+                  " src="assets/img/statistics-2-svgrepo-com.svg" />
+                <span class="text-icon" *ngIf="showFiller">Módulo Mantenimiento</span>
+              </mat-expansion-panel-header>
+              <mat-nav-list dense>
+                <ng-template [ngIf]="checkPermission('/modulo-mantenimiento/importacion-manual')">
+                  <a mat-list-item [routerLink]="['/mantenimiento/importacion-manual']">
+                    <img [class]="showFiller ? 'menu-icon-svg' : 'menu-icon-svg-min'" src="assets/img/link-solid.svg" /><span class="text-icon" *ngIf="showFiller">Importación
+                      Manual</span></a>
+                </ng-template>
+
+                <ng-template [ngIf]="checkPermission('/modulo-mantenimiento/validacion-datos')">
+                  <a mat-list-item [routerLink]="['/mantenimiento/validacion-datos']"><img [class]="showFiller ? 'menu-icon-svg' : 'menu-icon-svg-min'" src="assets/img/calculate-svgrepo-com.svg" /><span class="text-icon"
+                      *ngIf="showFiller">Validación de Datos</span></a>
+                </ng-template>
+              </mat-nav-list>
+            </mat-expansion-panel>
+          </ng-template>
+          <!--FIN SECURITY SED-FON-070 MODULO DE MANTENIMIENTO-->
+
+          <!--INICIO SECURITY SED-FON-070 MODULO DE CONSULTAS-->
+          <!--MODULO DE CONSULTAS DATALOGGER-->
+          <ng-template [ngIf]="checkPermission('/modulo-consultas')">
+            <mat-expansion-panel [class.mat-elevation-z0]="true" [class.nav-background]="true" #panelSubOpcion dense>
+              <mat-expansion-panel-header [class.link-menu]="showFiller" [class.link-menu-min]="!showFiller"
+                [routerLinkActive]="['active-menu']">
+                <img [class]="
+                    showFiller ? 'menu-icon-svg' : 'menu-icon-svg-min-subop'
+                  " src="assets/img/icon-info-w.svg" />
+                <span class="text-icon" *ngIf="showFiller">M&oacute;dulo Consultas</span>
+              </mat-expansion-panel-header>
+              <mat-nav-list dense>
+                <ng-template [ngIf]="
+                    checkPermission('/modulo-consultas/consulta-dataloggers')
+                  ">
+                  <a mat-list-item [routerLink]="['/consulta/consulta-datalogger']">
+                    <img [class]="
+                        showFiller ? 'menu-icon-svg' : 'menu-icon-svg-min'
+                      " src="assets/img/link-solid.svg" /><span class="text-icon" *ngIf="showFiller">Consulta de
+                      Datalogger</span></a>
+                </ng-template>
+
+                <ng-template [ngIf]="checkPermission('/modulo-consultas/reportes')">
+                  <a mat-list-item [routerLink]="['/reporte']"><img [class]="
+                        showFiller ? 'menu-icon-svg' : 'menu-icon-svg-min'
+                      " src="assets/img/calculate-svgrepo-com.svg" /><span class="text-icon"
+                      *ngIf="showFiller">Reporte</span></a>
+                </ng-template>
+              </mat-nav-list>
+            </mat-expansion-panel>
+          </ng-template>
+
+          <!--MODULO DE CONSULTAS -->
+          <!--FIN SECURITY SED-FON-070 MODULO DE CONSULTAS-->
+
+          <div *ngIf="admin_etic > 0 || admin_com > 0" routerLink="/parametros" [routerLinkActive]="['active-menu']"
+            [class.link-menu]="showFiller" [class.link-menu-min]="!showFiller">
+            <img [class]="showFiller ? 'menu-icon-svg' : 'menu-icon-svg-min'" src="assets/img/icon-parametros.svg"
+              style="width: 23px; margin-right: 12px" />
+            <span *ngIf="showFiller">Parámetros</span>
+          </div>
+        </mat-nav-list>
+        <img [src]="'assets/img/isotipo-sedapal.png'" class="fondo" [hidden]="!showFiller" />
+      </mat-sidenav>
+      <mat-sidenav-content style="
+          transition-property: margin;
+          transition-duration: 350ms;
+          transition-timing-function: ease-out;
+          padding-bottom: 50px;
+        ">
+        <router-outlet> </router-outlet>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+    <!--<app-footer
+      *ngIf="!mobileQuery.matches"
+      [style.marginLeft]="showFiller ? '250px' : '67px'"
+    ></app-footer>-->
+  </div>
+</main>

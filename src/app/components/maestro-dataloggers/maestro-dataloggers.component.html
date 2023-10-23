@@ -1,0 +1,166 @@
+<div class="suministro">
+  <span openDialog></span>
+  <div id="detalleSuministro">
+    <!--<h2 style="opacity: inherit; font-weight: 600; color: black">Buscar:</h2>-->
+    <div id="busqueda">
+      <div>
+        <table>
+          <tbody>
+            <tr>
+              <td style="vertical-align: middle; width: 100px">
+                <span>DATALOGGERS</span>
+              </td>
+              <td style="width: 100px">
+                <form>
+                  <mat-form-field>
+                    <input
+                      matInput
+                      [(ngModel)]="codeDatalogger"
+                      placeholder="C&oacute;digo Datalogger"
+                      autocomplete="off"
+                      onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                      name="codeDatalogger"
+                      maxlength="10"
+                    />
+                  </mat-form-field>
+                </form>
+              </td>
+              <td style="vertical-align: middle">
+                <mat-icon style="cursor: pointer" (click)="buscarDataloggers()"
+                  >search</mat-icon
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>  
+    <h2 style="color: hsl(201, 100%, 33%);"><strong>DATALOGGERS
+    </strong> 
+    <div style="float: right">
+      <span class="label-nuevo"> Nuevo Datalogger </span>
+      <img
+        class="nuevo-parametro"
+        src="assets/img/icon-add.svg"
+        (click)="add()"
+      />
+    </div>
+  </h2>
+  <div class="header-container">
+    <div class="table-responsive">
+      <table
+        id="tabla-parametros"
+        name="tabla-parametros"
+        class="table table-hover issue-tracker"
+        [style.width]="mobileQuery.matches ? '900px' : '100%'"
+      >
+        <thead class="table-head">
+          <tr>
+            <th width="1%" style="border: none">Nro</th>
+            <th width="10%" style="border: none">Area</th>
+            <th width="5%" style="border: none">Sector</th>
+            <th width="10%" style="border: none">C&oacute;digo Datalogger</th>
+            <th width="25%" style="border: none">Descripci&oacute;n Datalogger</th>            
+            <th width="10%" style="border: none">C&oacute;digo Sedapal</th>
+            <th width="10%" style="border: none">Zona</th>
+            <th width="10%" style="border: none">Distrito</th>
+            <th width="5%" style="border: none">Estado</th>
+            <th width="5%" style="border: none">Indicador</th>
+            <th width="10%" style="border: none">Suministro</th>
+            <th style="border: none"></th>
+          </tr>
+        </thead>
+        <tbody class="table-body">
+          <tr
+            *ngFor="let dato of itemsPagination; let i = index"
+            (click)="selectRow(i, dato)"
+            [class.info]="i == selectedRow"
+          >
+            <td width="1%">{{ i+1+((page-1)*limit) }}</td>
+            <td width="10%">{{ dato.areaBuscarResponse.vCodarea }}</td>            
+            <td width="5%">{{ dato.sectorBuscarResponse.nSector }}</td>
+            <td width="10%">{{ dato.nCoddat }}</td>
+            <td width="15%">{{ dato.vDesdat }}</td>            
+            <td width="10%">{{ dato.nCodseg }}</td>
+            <td width="10%">{{ dato.zonaBuscarResponse.vZona }}</td>
+            <td width="10%">
+              {{ dato.distritoBuscarResponse.vDesdistrito }}
+            </td>
+            <!--<td width="5%">{{ dato.estadoBuscarResponse.vEstado }}</td>-->
+
+            <td width="6%" class="text-center" [ngSwitch]="dato.estadoBuscarResponse.vEstado">
+              <span *ngSwitchCase="'ACTIVO'" class="label label-primary"
+                >&nbsp;ACTIVO&nbsp;&nbsp;</span
+              >
+              <span *ngSwitchCase="'BAJA'" class="label label-danger"
+                >&nbsp;&nbsp;&nbsp;BAJA&nbsp;&nbsp;&nbsp;</span
+              >
+            </td>
+
+
+            <td width="5%">
+              {{ dato.indicadorBuscarResponse.vIndicador }}
+            </td>
+            <td width="20%">{{ dato.nNis }}</td>
+            <td>
+              
+              <button
+                [matMenuTriggerFor]="menu"
+                mat-icon-button
+                class="icon"
+                [tabIndex]="-1"
+                style="float: right"
+                *ngIf="isAdmin==true"
+                [matMenuTriggerData]="{
+                  estado: dato.estadoBuscarResponse.nEstado,
+                  indicador: dato.indicadorBuscarResponse.indicador,
+                  nis: dato.nNis
+                  
+                }"
+              >
+                <img src="assets/img/icon-menu.svg" width="4px" />
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <app-pagination
+      (goPage)="goToPage($event)"
+      (goNext)="onNext()"
+      (goPrev)="onPrev()"
+      [pagesToShow]="6"
+      [page]="page"
+      [perPage]="limit"
+      [count]="total"
+    ></app-pagination>
+  </div>
+  <ng-template #imgLoading>
+    <img
+      src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+    />
+  </ng-template>
+</div>
+
+<mat-menu #menu="matMenu">
+  <ng-template matMenuContent let-estado="estado" let-indicador="indicador" let-nis="nis" >
+    <a mat-menu-item (click)="mover()" *ngIf="indicador == 12 && estado == 14">
+      <img src="assets/img/file-pen-solid.svg" />
+      <span class="receipt-menu">Mover</span>
+    </a>
+    <a mat-menu-item (click)="edit()" *ngIf="estado == 14 && indicador == 12">
+      <img src="assets/img/file-pen-solid.svg" />
+      <span class="receipt-menu">Editar</span>
+    </a>
+    <a mat-menu-item (click)="delete()" *ngIf="estado == 14">
+      <img src="assets/img/trash-can-solid.svg" />
+      <span class="receipt-menu">Eliminar</span>
+    </a>
+    <a mat-menu-item (click)="gis()" *ngIf="nis != null" >
+      <img src="assets/img/file-pen-solid.svg" />
+      <span class="receipt-menu">Plano Gis</span>
+    </a>
+  </ng-template>
+</mat-menu>

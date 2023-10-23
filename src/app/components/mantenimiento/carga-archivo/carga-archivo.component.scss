@@ -1,0 +1,103 @@
+@import "variables";
+
+.deshabilitado {
+  cursor: not-allowed;
+}
+
+::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+  background-color: $light-blue;
+}
+
+::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+  background-color: $light-blue;
+}
+
+::ng-deep .mat-slide-toggle.mat-checked .mat-ripple-element {
+  background-color: $light-blue;
+}
+
+::ng-deep .mat-dialog-container .mat-dialog-title {
+  padding: 1.5em;
+}
+
+////------------------------------------------
+#wrap {
+  display: block;
+}
+
+#box1,
+#box2,
+#box3,
+#box4 {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+#box1 {
+  text-align: center;
+  border: 1px solid gray;
+  height: 250px;
+  overflow: auto;
+}
+
+.pagar-recibos {
+  border-radius: 50px;
+  border: solid 6px $yellow-orange;
+  background-color: $yellow-orange;
+  opacity: 0.87;
+  font-family: $font-family;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.43;
+  text-align: center;
+  color: #ffffff;
+  cursor: pointer;
+  outline: none;
+}
+
+#progressbar {
+  text-align: center;
+  height: 20px;
+  padding: 10px;
+}
+
+#box1 span {
+  margin-left: 10px;
+}
+
+#box2 span {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#box2 #selectButton {
+  background-color: #e4e1ef;
+}
+
+#box2 #uploadButton {
+  background-color: rgb(26, 26, 160);
+}
+
+#box3 {
+  color: red;
+}
+
+#box4 ul {
+  list-style: none;
+}
+
+#box4 ul li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#box4 ul li a {
+  text-decoration: none;
+  color: white;
+  margin-right: 20px;
+}

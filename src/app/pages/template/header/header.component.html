@@ -1,0 +1,86 @@
+<div class="bg-image">
+  <img
+    src="assets/img/fondo-banner.png"
+    [class]="mobileQuery.matches ? 'fondo-mobile' : 'fondo'"
+  />
+  <img
+    *ngIf="mobileQuery.matches"
+    src="assets/img/icon-menu-sandwich.svg"
+    class="menu-sandwich"
+    (click)="toggle()"
+  />
+  <img
+    src="assets/img/vectorpaint.png"
+    [class]="mobileQuery.matches ? 'logo-mobile' : 'logo'"
+  />
+  <div>
+    <div>
+      <h1 class="titulo">
+        <span class="span"></span> APLICATIVO DE CONTROL Y GESTIÓN DE
+        DATALOGGERS<span class="span"> </span>
+      </h1>
+    </div>
+    <h2 class="subtitulo">¡SEDAPAL #JuntospodremosSalirDeEsta! <br /></h2>
+  </div>
+  <div>
+    <span [class]="mobileQuery.matches ? 'correo-mobile' : 'correo'">
+      <img
+        src="assets/img/account.svg"
+        style="height: 30px; padding-right: 10px"
+      />
+      <span>{{ usuario }}</span>
+    </span>
+    <button
+      [matMenuTriggerFor]="menu"
+      mat-icon-button
+      [class.icon-mobile]="mobileQuery.matches"
+      [class.icon]="!mobileQuery.matches"
+      [tabIndex]="-1"
+    >
+      <mat-icon>arrow_drop_down</mat-icon>
+    </button>
+  </div>
+
+  <div style="position: absolute; top: 25px; right: 37px">
+    <button mat-button style="color: #fff"></button>
+  </div>
+</div>
+
+<mat-menu #menu="matMenu">
+  <div class="text-center">
+    <span class="block m-t-xs">
+      <img alt="image" class="img-circle" src="assets/img/sedapal-gota.png" />
+    </span>
+  </div>
+  <hr style="margin-top: 10px; margin-bottom: 8px" />
+
+  <div  class="bg-font">
+    <span class="receipt-menu">
+      {{ nombreUsuario }}
+    </span>
+  </div>
+
+  <div class="bg-font">
+    <span class="receipt-menu">
+      <strong style="font-weight: 500"> {{ perfilUsuario }}</strong>
+    </span>
+  </div>
+
+  <hr style="margin-top: 10px; margin-bottom: 8px" />
+
+  <a mat-menu-item (click)="OnChangePassword()">
+    <img src="assets/img/icon-upd-info.svg" />
+    <span class="receipt-menu">Cambio de contraseña</span>
+  </a>
+
+  <hr style="margin-top: 10px; margin-bottom: 8px" />
+
+  <!--<a mat-menu-item routerLink="/actualizar-datos">
+      <img src="assets/img/icon-upd-info.svg">
+      <span class="receipt-menu">Actualizar Datos</span>
+    </a>-->
+  <a mat-menu-item (click)="OnLogout()">
+    <img src="assets/img/icon-logout.svg" />
+    <span class="receipt-menu">Cerrar Sesión</span>
+  </a>
+</mat-menu>

@@ -1,0 +1,139 @@
+@import "variables";
+.suministro {
+  padding: 0.5em 2em;
+  height: calc(100% - 50px);
+}
+
+h2 {
+  font-family: $font-family;
+  font-size: 1.2rem;
+  line-height: 1.33;
+  font-weight: 400;
+  color: var(--black-87);
+  padding-left: 0.4em;
+}
+
+.header-container {
+  @extend %container;
+  background-color:#fafbfe;
+}
+
+table {
+  width: 100%;
+}
+
+th {
+  font-family: $font-family;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.33;
+  color: var(--black-87);
+  vertical-align: top;
+}
+
+td {
+  opacity: 0.54;
+  font-family: $font-family;
+  font-size: 14px;
+  line-height: 1.14;
+  color: var(--black);
+  vertical-align: top;
+}
+
+tbody {
+  td {
+    padding-right: 0.5em;
+  }
+}
+
+::ng-deep .mat-select-value,
+::ng-deep .mat-select-arrow {
+  color: $light-blue;
+}
+
+::ng-deep mat-select[class*="mat-select-"] {
+  color: $light-blue;
+  font-weight: 600;
+}
+
+a {
+  display: flex;
+
+  .mat-icon {
+    color: #009ff6;
+    font-weight: 600;
+  }
+
+  span {
+    color: #009ff6;
+    font-weight: 600;
+    margin: auto;
+  }
+}
+
+mat-form-field {
+  padding-right: 1em;
+}
+
+::ng-deep .mat-form-field.mat-focused .mat-form-field-ripple {
+  background-color: $light-blue;
+  font-weight: bold;
+}
+
+::ng-deep .mat-form-field-infix {
+  border-top: 0;
+}
+
+.nro-sum {
+  padding: 0;
+  width: 100px;
+}
+
+:host ::ng-deep form .mat-form-field-label-wrapper .mat-form-field-label {
+  font-size: 14px;
+}
+
+:host ::ng-deep .mat-input-placeholder {
+  font-size: 14px;
+}
+
+:host ::ng-deep form .mat-form-field,
+form .mat-input-element,
+form .mat-option {
+  font-size: 14px;
+}
+
+:host ::ng-deep form .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+  padding-bottom: 0;
+}
+
+#busqueda {
+  padding-bottom: 1em;
+  padding-left: 1em;
+}
+
+:host ::ng-deep .mat-form-field-underline {
+  position: static;
+}
+.text-overflow {
+  overflow: hidden;
+  white-space: initial;
+}
+.btn-lighblue {
+  background-color: #009ff6;
+}
+.white-box {
+	//background: #37404a!important; #0f2f41;  #003655
+	padding: 25px;
+	margin-bottom: 30px;
+  box-shadow: 0px 0px 35px 0px rgb(154 161 171 / 15%);
+  background-color: #0f2f41;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+.white-box .box-title {
+	font-weight: 700;
+	line-height: 30px;
+	font-size: 18px;
+  color: #aab8c5;
+}

@@ -1,0 +1,41 @@
+<span openDialog></span>
+<h2 mat-dialog-title>
+  {{ titulo }}
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="dialogRef.close()"
+    [tabIndex]="-1"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</h2>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="form-row">
+    <div class="col">
+      <mat-form-field>
+        <input
+          matInput
+          id="observacion"
+          name="observacion"
+          formControlName="observacion"
+          placeholder="Observaci&oacute;n *"
+          autocomplete="off"
+          maxlength="200"
+        />
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col text-center">
+      <button mat-flat-button color="primary" type="submit">Guardar</button>
+      <br />
+    </div>
+  </div>
+  <div *ngIf="error" class="form-row mt-3">
+    <div class="col text-center">
+      <div class="alert alert-danger">{{ error }}</div>
+    </div>
+  </div>
+</form>

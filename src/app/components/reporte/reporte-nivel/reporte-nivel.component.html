@@ -1,0 +1,299 @@
+<div class="suministro">
+  <h2 style="color: hsl(201, 100%, 33%);"><strong>REPORTE DE NIVEL
+  </strong> </h2>
+  <!--*ngIf="showSuministro"-->
+  <div id="detalleSuministro">
+    <div id="busqueda">
+      <div>
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                <form>
+                  <div class="row">
+                    <div class="col-6">
+                       <!----> 
+                    <mat-form-field id="rangepicker" appearance="fill">
+                      <mat-label>Ingrese rango de fecha</mat-label>
+                      <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+                        <input  style="color: blue;" matStartDate formControlName="start" placeholder="Fecha Inicio">
+                        <input style="color: blue;" matEndDate formControlName="end" placeholder="Fecha Fin">
+                      </mat-date-range-input>
+                      <!--<mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>-->
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-date-range-picker #picker></mat-date-range-picker>
+                    
+                      <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Fecha Inicial inválido</mat-error>
+                      <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Fecha Final inválido</mat-error>
+
+                    </mat-form-field>
+                  </div>
+
+                 <!----> 
+
+
+                     <!--<mat-form-field class="nro-monto w-100">
+                        <input
+                          name="dFecinic"
+                          matInput
+                          [(ngModel)]="dFecinic"
+                          [matDatepicker]="pickerFecinic"
+                          (focus)="pickerFecinic.open()"
+                          placeholder="Fecha de Inicio: dd/mm/aaaa"
+                          readonly
+                          autocomplete="off"
+                        />
+                        <button
+                          mat-button
+                          matSuffix
+                          mat-icon-button
+                          type="button"
+                          (click)="form.controls['dFecinic'].setValue('')"
+                        >
+                          <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="pickerFecinic"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #pickerFecinic></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-6">
+                      <mat-form-field class="nro-monto w-100">
+                        <input
+                          name="dFecfin"
+                          matInput
+                          [(ngModel)]="dFecfin"
+                          [matDatepicker]="pickerFecfin"
+                          (focus)="pickerFecfin.open()"
+                          placeholder="Fecha Fin: dd/mm/aaaa"
+                          readonly
+                          autocomplete="off"
+                        />
+                        <button
+                          mat-button
+                          matSuffix
+                          mat-icon-button
+                          type="button"
+                          (click)="form.controls['dFecinic'].setValue('')"
+                        >
+                          <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="pickerFecfin"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #pickerFecfin></mat-datepicker>
+                      </mat-form-field>
+                    </div>-->
+                    
+
+
+                    <div class="col-6">
+                      <mat-form-field>
+
+                        <!--<mat-select
+                        id="codeSector"
+                        name="codeSector"
+                        class="select-css"
+                        placeholder="Sector "
+                        [(ngModel)]="codeSector"
+                        style="
+                          border: 1;
+                          font-weight: 400;
+                          line-height: 1.125;
+                          font-family: Roboto, 'Helvetica Neue', sans-serif;
+                          color: gray;
+                        "
+                      >
+                      </mat-select>-->
+                      <mat-select
+                          id="codeEquipo"
+                          name="codeEquipo"
+                          class="select-css"
+                          placeholder="Equipo "
+                          [(ngModel)]="codeEquipo"
+                          style="
+                            border: 1;
+                            font-weight: 400;
+                            line-height: 1.125;
+                            font-family: Roboto, 'Helvetica Neue', sans-serif;
+                            color: gray;
+                          "
+                        >
+                          <mat-option
+                            *ngFor="let area of this.listAreaCombo"
+                            [value]="area.nCodigo"
+                            >{{ area.vDescripcion }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-6">
+                      <mat-form-field>
+                        <input
+                          id="codeDatalogger"
+                          name="codeDatalogger"
+                          matInput
+                          onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                          maxlength="10"
+                          [(ngModel)]="codeDatalogger"
+                          placeholder="Código Datalogger"
+                          autocomplete="off"
+                          name="codeDatalogger"
+                        />
+                      </mat-form-field>
+                      
+                    </div>
+                   <div class="col-6">
+                    <mat-form-field>
+                      <mat-select
+                        id="codeSector"
+                        name="codeSector"
+                        class="select-css"
+                        placeholder="Sector "
+                        [(ngModel)]="codeSector"                          
+                        style="
+                          border: 1;
+                          font-weight: 400;
+                          line-height: 1.125;
+                          font-family: Roboto, 'Helvetica Neue', sans-serif;
+                          color: gray;
+                        "
+                      >                        
+                        <mat-option *ngFor="let sector of this.listSectorCombo" [value]="sector.nCodigo">
+                          {{ sector.vDescripcion }}                            
+                          </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    </div>
+                    <!--<div class="col-6">
+                      <mat-form-field>
+                        <mat-select
+                          id="codeZona"
+                          name="codeZona"
+                          class="select-css"
+                          placeholder="Zona "
+                          [(ngModel)]="codeZona"
+                          style="
+                            border: 1;
+                            font-weight: 400;
+                            line-height: 1.125;
+                            font-family: Roboto, 'Helvetica Neue', sans-serif;
+                            color: gray;
+                          "
+                        >
+                          <mat-option
+                            *ngFor="let zona of this.listZonaCombo"
+                            [value]="zona.nCodigo"
+                            >{{ zona.vDescripcion }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>-->
+                  </div>
+                </form>
+              </td>
+              <td style="width: 300px">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    (click)="buscarReporte()"
+                  >
+                    Buscar
+                  </button>
+                  <button
+                  [disabled]="habilitaGrafico"
+                    type="button"
+                    class="btn btn-success"
+                    (click)="exportExcel()"
+                  >
+                    Exportar Excel
+                  </button>
+                  <button
+                  [disabled]="habilitaGrafico"
+                    type="button"
+                    class="btn btn-danger"
+                    (click)="exportPDF()"
+                  >
+                    Exportar PDF
+                  </button>
+                  <button
+                  [disabled]="habilitaGrafico"
+                    type="button"
+                    class="btn btn-secondary"
+                    (click)="verGrafico()"
+                  >
+                    Ver Gráfico
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <br />
+  </div>
+
+
+  <div *ngIf="menssageError"  class="alert alert-danger">
+    <strong>Error Fecha!</strong> Por favor ingrese una fecha correcta. Formato:  DD/MM/YYYY - DD/MM/YYYY 
+  </div>
+
+  <div *ngIf="menssageExito" class="alert alert-success">
+    <strong>Consulta Exitosa!</strong>
+  </div>
+
+
+  <!--<div class="col p-0">
+    <a
+      role="button"
+      class="btn btn-primary float-right"
+      [routerLink]="['/reporte']"
+    >
+      REGRESAR
+    </a>
+  </div>
+  <br />
+  <br />
+  <br />-->
+  <div class="header-container col">
+    <div class="table-responsive" id="htmlData">
+      <table
+        id="tabla-parametros"
+        name="tabla-parametros"
+        class="table table-hover issue-tracker"
+        [style.width]="mobileQuery.matches ? '900px' : '100%'"
+      >
+        <thead class="table-head">
+          <tr>
+            <th width="4%" style="border: none">NRO.</th>
+            <th width="15%" style="border: none">COD. DATALOGGER</th>
+            <th width="16%" style="border: none">FECHA/HORA</th>
+            <th width="10%" style="border: none">NIVEL</th>
+          </tr>
+        </thead>
+        <tbody class="table-body">
+          <tr *ngFor="let dato of itemsPagination; let i = index">
+            <td width="4%">{{ i+1+((page-1)*limit) }}</td>
+            <td width="10%">{{ dato.vCodigoDatalogger }}</td>
+            <td width="16%">{{ dato.fecha }}</td>
+            <td width="10%">{{ dato.vParametro1 }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <app-pagination
+      (goPage)="goToPage($event)"
+      (goNext)="onNext()"
+      (goPrev)="onPrev()"
+      [pagesToShow]="6"
+      [page]="page"
+      [perPage]="limit"
+      [count]="total"
+    ></app-pagination>
+  </div>
+</div>

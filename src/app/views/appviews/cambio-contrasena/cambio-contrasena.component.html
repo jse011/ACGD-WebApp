@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Material Able bootstrap admin template by Codedthemes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <meta name="keywords"
+        content="bootstrap, bootstrap admin template, admin theme, admin dashboard, dashboard template, admin template, responsive" />
+    <meta name="author" content="Codedthemes" />
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+</head>
+
+<body themebg-pattern="theme1">
+    <section class="login-block">
+        <!-- Container-fluid starts -->
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <!-- Authentication card start -->
+
+                    <form class="md-float-material form-material" #login="ngForm">
+                        <div class="auth-box card">
+                            <div class="card-block">
+                              <div class="text-center">
+
+                                  <img [src]="pathImagen+'/assets/img/carousel_1.png'" style="width: 250px;" alt="logo.png">
+                                  <br>
+                                  <br>
+                                  <h4 style="color:#0065a4; font-size:25px;">{{name}}</h4>
+                                  <h4 style="color:#0065a4;font-size:20px">{{id}}</h4>
+                              </div>
+
+                                <div class="row m-b-20">
+                                    <div class="col-md-12">
+                                        <h3 class="text-center" style="color:#0065a4; ">{{title}}</h3>
+                                    </div>
+                                </div>
+
+
+
+
+
+
+                                <div *ngIf="!requested">
+                                    <div class="alert alert-danger" st *ngIf="error">{{error}}</div>
+                                    <div class="alert alert-info" *ngIf="info">{{info}}</div>
+                                    <div class="form-group form-primary">
+                                        <input type="text" name="username" [(ngModel)]="username" placeholder="Ingrese Usuario"
+                                            [disabled]="authenticated" class="form-control" autocomplete="off">
+                                        <span class="form-bar"></span>
+                                        <label class="float-label">Usuario</label>
+                                    </div>
+                                    <div class="row m-t-30">
+                                        <div class="col-md-12">
+                                            <button type="button" (click)="doRequest(login)"
+                                                class="btn btn-primary btn-md btn-block waves-effect waves-light text-center m-b-20">
+                                                Enviar
+                                              </button>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button type="button" [routerLink]="['/login']"
+                                                class="btn btn-success btn-md btn-block waves-effect waves-light text-center m-b-20">Cerrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+
+
+                                <!--<div *ngIf="requested">-->
+
+
+                                    <form class="m-t" #reset="ngForm" role="form" (submit)="doReset(reset)" *ngIf="requested">
+                                        <div class="alert alert-danger" st *ngIf="error">{{error}}</div>
+                                        <div class="alert alert-info" *ngIf="info">{{info}}</div>
+                                    <div class="form-group form-primary" style="margin-bottom: 0px;" >
+                                        <input  type="text" name="username" [(ngModel)]="username" class="form-control" autocomplete="off" disabled placeholder="Ingrese Usuario" >
+                                        <span class="form-bar"></span>
+                                        <label class="float-label">Usuario</label>
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 0px;">
+                                        <input [(ngModel)]="oldPassword" [disabled]="userNew" placeholder="Ingrese la contraseña temporal" type="password" name="old_password" class="form-control" required  autocomplete="off">
+                                        <span class="form-bar"></span>
+                                        <label class="float-label">Contraseña recibida por correo</label>
+                                    </div>
+
+                                    <div class="form-group" style="margin-bottom: 0px;">
+                                        <input [(ngModel)]="newPassword" placeholder="Ingrese Nueva Contraseña" type="password" name="new_password" class="form-control" required  autocomplete="off">
+                                        <span class="form-bar"></span>
+                                        <label class="float-label">Nueva Contraseña</label>
+                                    </div>
+
+                                    <div class="form-group" style="margin-bottom: 0px;">
+                                        <input [(ngModel)]="newPasswordCheck"  placeholder="Ingrese Nueva Contraseña" type="password" name="new_password_check" class="form-control" required   autocomplete="off">
+                                        <span class="form-bar"></span>
+                                        <label class="float-label">Repite la Nueva Contraseña</label>
+                                    </div>
+
+                                    <div class="row m-t-30">
+                                        <div class="col-md-12">
+                                            <button type="submit" class="btn btn-primary btn-md btn-block waves-effect waves-light text-center m-b-20">Cambiar Contraseña</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <!--</div>-->
+
+
+
+
+                                <hr />
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <p class="text-inverse text-left m-b-0">{{copyright}}</p>
+                                        <p class="text-inverse text-left"><b>{{id}} ver. {{version}}</b></p>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <img [src]="pathImagen+'/assets/img/icon-drop.svg'" alt="small-logo.png" style="width: 35px;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <script type="text/javascript" src="assets/js/jquery/jquery.min.js "></script>
+    <script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js "></script>
+    <script type="text/javascript" src="assets/js/popper.js/popper.min.js"></script>
+    <script type="text/javascript" src="assets/js/bootstrap/js/bootstrap.min.js "></script>
+    <!-- waves js -->
+    <script src="assets/pages/waves/js/waves.min.js"></script>
+    <!-- jquery slimscroll js -->
+    <script type="text/javascript" src="assets/js/jquery-slimscroll/jquery.slimscroll.js"></script>
+    <script type="text/javascript" src="assets/js/common-pages.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,145 @@
+<div class="suministro">
+  <h2 style="color: hsl(201, 100%, 33%);"><strong>REPORTE ESTAD&Iacute;STICO
+    </strong> </h2>
+  <div id="detalleSuministro">
+    <div id="busqueda">
+      <div>
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                <form>
+                  <div class="row">
+                    <div class="col-6">
+                      <mat-form-field id="rangepicker" appearance="fill">
+                        <mat-label>Ingrese rango de fecha</mat-label>
+                        <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+                          <input style="color: blue;" matStartDate formControlName="start" placeholder="Fecha Inicio">
+                          <input style="color: blue;" matEndDate formControlName="end" placeholder="Fecha Fin">
+                        </mat-date-range-input>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker></mat-date-range-picker>
+                        <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Fecha Inicial inválido
+                        </mat-error>
+                        <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Fecha Final inválido
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-6">
+                      <mat-form-field>
+                        <mat-select id="codeEquipo" name="codeEquipo" class="select-css" placeholder="Equipo "
+                          [(ngModel)]="codeEquipo" style="
+                            border: 1;
+                            font-weight: 400;
+                            line-height: 1.125;
+                            font-family: Roboto, 'Helvetica Neue', sans-serif;
+                            color: gray;">
+                          <mat-option *ngFor="let area of this.listAreaCombo" [value]="area.nCodigo">{{
+                            area.vDescripcion }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-6">
+                      <mat-form-field>
+                        <mat-select #matSelect id="codeParametro" name="codeParametro" class="select-css"
+                          placeholder="Parámetro "   [(ngModel)]="codeParametro" style="
+                            border: 1;
+                            font-weight: 400;
+                            line-height: 1.125;
+                            font-family: Roboto, 'Helvetica Neue', sans-serif;
+                            color: gray;
+                          " #testid [matTooltip]="matSelect.triggerValue">
+                          <mat-option *ngFor="let parametro of parametrosCombo" [value]="parametro.nNumreg"
+                            matTooltip="{{ parametro.vDescripcion }}">{{ parametro.vDescripcion }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-6">
+                      <mat-form-field>
+                        <mat-select id="codeTiempo" name="codeTiempo" class="select-css" placeholder="Tiempo"
+                          [(ngModel)]="codeTiempo" style="
+                            border: 1;
+                            font-weight: 400;
+                            line-height: 1.125;
+                            font-family: Roboto, 'Helvetica Neue', sans-serif;
+                            color: gray;
+                          ">
+                          <mat-option *ngFor="let tiempo of this.listTiempoCombo" [value]="tiempo.nCodigo">
+                            {{ tiempo.vDescripcion }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-6">
+                      <mat-form-field>
+                        <mat-select id="codeSector" name="codeSector" class="select-css" placeholder="Sector "
+                          [(ngModel)]="codeSector" style="
+                            border: 1;
+                            font-weight: 400;
+                            line-height: 1.125;
+                            font-family: Roboto, 'Helvetica Neue', sans-serif;
+                            color: gray;
+                          ">
+                          <mat-option *ngFor="let sector of this.listSectorCombo" [value]="sector.nCodigo">
+                            {{ sector.vDescripcion }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </form>
+              </td>
+              <td style="width: 300px">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                  <button type="button" class="btn btn-primary" (click)="buscarReporte()">
+                    Buscar
+                  </button>
+                  <button [disabled]="habilitaGrafico" type="button" class="btn btn-success" (click)="exportExcel()">
+                    Exportar Excel
+                  </button>
+                  <button type="button" class="btn btn-danger" (click)="exportPDF()" [disabled]="habilitaGrafico">
+                    Exportar PDF
+                  </button>
+                  <button [disabled]="habilitaGrafico" type="button" class="btn btn-secondary" (click)="verGrafico()">
+                    Ver Gráfico
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="header-container col">
+    <div class="table-responsive" id="htmlData">
+      <table id="tabla-parametros" name="tabla-parametros" class="table table-hover issue-tracker"
+        [style.width]="mobileQuery.matches ? '900px' : '100%'">
+        <thead class="table-head">
+          <tr>
+            <th width="1%" style="border: none">NRO.</th>
+            <th width="2%" style="border: none">FECHA/HORA</th>
+            <th width="2%" style="border: none">ZONA BAJA</th>
+            <th width="2%" style="border: none">ZONA MEDIA</th>
+            <th width="2%" style="border: none">ZONA ALTA</th>
+            <th width="2%" style="border: none">SECTOR</th>
+          </tr>
+        </thead>
+        <tbody class="table-body">
+          <tr *ngFor="let dato of itemsPagination; let i = index">
+            <td width="1%">{{ i+1+((page-1)*limit) }}</td>
+            <td width="2%">{{ dato.fecha }} </td>
+            <td width="2%">{{ dato.zonaBaja }}</td>
+            <td width="2%">{{ dato.zonaMedia }}</td>
+            <td width="2%">{{ dato.zonaAlta }}</td>
+            <td width="2%">{{ dato.vSector }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <app-pagination (goPage)="goToPage($event)" (goNext)="onNext()" (goPrev)="onPrev()" [pagesToShow]="6" [page]="page"
+      [perPage]="limit" [count]="total"></app-pagination>
+  </div>
+</div>

@@ -1,0 +1,203 @@
+<div class="suministro">  
+  <!--<div id="detalleSuministro">
+    <div id="busqueda">
+      <div>
+        <table>
+          <tbody>
+            <tr>
+              <td style="vertical-align: middle; width: 100px">
+                <span>DATALOGGER:</span>
+              </td>
+              <td style="width: 150px">
+                <form>
+                  <mat-form-field>
+                    <input
+                      matInput
+                      [(ngModel)]="codeDatalogger"
+                      placeholder="Código Datalogger"
+                      autocomplete="off"
+                      name="codeDatalogger"
+                    />
+                  </mat-form-field>
+                </form>
+              </td>
+
+              <td style="vertical-align: middle; width: 100px">
+                <span>EQUIPO:</span>
+              </td>
+              <td>
+                <mat-form-field class="nro-monto">
+                  <mat-select
+                    id="codeArea"
+                    name="codeArea"
+                    class="select-css"
+                    [(ngModel)]="codeArea"
+                    style="
+                      border: 1;
+                      font-weight: 400;
+                      line-height: 1.125;
+                      font-family: Roboto, 'Helvetica Neue', sans-serif;
+                      color: gray;
+                    "
+                  >
+                    <mat-option
+                      *ngFor="let area of this.listAreaCombo"
+                      [value]="area.nCodigo"
+                      >{{ area.vDescripcion }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </td>
+
+              <td style="width: 300px">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    (click)="buscarDataloggers()"
+                  >
+                    Buscar
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-success"
+                    (click)="exportExcel()"
+                  >
+                    Exportar Excel
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    (click)="exportPDF()"
+                  >
+                    Exportar PDF
+                  </button>
+                  <button type="button" class="btn btn-secondary" (click)="verGrafico()">
+                    Ver Gráfico
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <br />
+  </div>-->
+
+  <div id="detalleSuministro">
+    <div id="busqueda">
+      <div>
+        <table>
+          <tbody>
+            <tr>
+              <td style="vertical-align: middle; width: 100px">
+                <span></span>
+              </td>
+              <td style="width: 1000px"></td>
+              <td style="width: 300px">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                  <!--<button type="button" class="btn btn-primary" (click)="buscarDataloggers()">
+                    Buscar
+                  </button>-->
+                  <button type="button" class="btn btn-success" (click)="exportExcel()">
+                    Exportar Excel
+                  </button>
+                  <button type="button" class="btn btn-danger" (click)="exportPDF()">
+                    Exportar PDF
+                  </button>
+                  <button type="button" class="btn btn-secondary" (click)="verGrafico()">
+                    Ver Gráfico
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <br />
+  </div>
+
+
+  <!--<div class="header-container">
+    <div class="table-responsive" id="htmlData">
+      <table
+        id="tabla-parametros"
+        name="tabla-parametros"
+        class="table table-hover issue-tracker"
+        [style.width]="mobileQuery.matches ? '900px' : '100%'"
+      >
+        <thead class="table-head">
+          <tr>
+            <th width="2%" style="border: none">NRO</th>
+            <th width="15%" style="border: none">C&Oacute;DIGO DATALOGGER</th>
+            <th width="79%" style="border: none">&Aacute;REA</th>
+            <th width="4%" style="border: none">CANTIDAD</th>
+          </tr>
+        </thead>
+        <tbody class="table-body">
+          <tr *ngFor="let dato of itemsPagination; let i = index">
+            <td width="2%">{{ dato.nro }}</td>
+            <td width="15%">{{ dato.nCoddat }}</td>
+            <td width="79%">{{ dato.areaBuscarResponse.vCodarea }}</td>
+            <td width="4%">{{ dato.cantidad }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <app-pagination
+      (goPage)="goToPage($event)"
+      (goNext)="onNext()"
+      (goPrev)="onPrev()"
+      [pagesToShow]="6"
+      [page]="page"
+      [perPage]="limit"
+      [count]="total"
+    ></app-pagination>
+  </div>-->
+
+
+
+  <div class="header-container">
+    <div class="row" style="width: 100%;">
+      <div class="col">
+        <div class="table-responsive" id="htmlData">
+          <table id="tabla-parametros" name="tabla-parametros" class="table table-hover issue-tracker"
+            [style.width]="mobileQuery.matches ? '900px' : '100%'">
+            <thead class="table-head">
+              <tr>
+                <th width="2%" style="border: none">NRO.</th>
+                <th width="8%" style="border: none">&Aacute;REA</th>
+                <th width="1%" style="border: none">CANTIDAD</th>
+              </tr>
+            </thead>
+            <tbody class="table-body">
+              <tr *ngFor="let dato of itemsPagination; let i = index">
+                <td width="2%">{{ dato.nro }}</td>
+                <td width="8%"> {{ dato.areaBuscarResponse.vCodarea}} - <span style="color: #009ff6;">{{dato.vAbreviatura  }} </span></td>
+                <td width="1%">{{ dato.cantidad }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <app-pagination (goPage)="goToPage($event)" (goNext)="onNext()" (goPrev)="onPrev()" [pagesToShow]="6"
+            [page]="page" [perPage]="limit" [count]="total"></app-pagination>
+        </div>
+      </div>
+      <!--Grafico-->
+      <div class="col" style="width: 100%;">
+        <canvas id="myChart" baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+          [plugins]="barChartPlugins" [legend]="barChartLegend" [type]="barChartType">
+        </canvas>
+      </div>
+      <!--Grafico-->
+    </div>
+  </div>
+
+
+
+
+
+
+
+</div>

@@ -1,0 +1,24 @@
+<div class="chartjs-container">
+  <h2 mat-dialog-title>
+    GR&Aacute;FICO REPORTE NIVEL
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="dialogRef.close()"
+      [tabIndex]="-1"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </h2>
+  <canvas
+    baseChart
+    [datasets]="barChartData"
+    [labels]="barChartLabels"
+    [options]="barChartOptions"
+    [plugins]="barChartPlugins"
+    [legend]="barChartLegend"
+    [type]="barChartType"
+  >
+  </canvas>
+</div>

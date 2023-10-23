@@ -1,0 +1,176 @@
+<div class="suministro">
+  <!--*ngIf="showSuministro"-->
+  <div id="detalleSuministro">
+    <div id="busqueda">
+      <div>
+        <table>
+          <tbody>
+            <tr>
+              <!--<td style="vertical-align: middle; width: 100px">
+                <span>DATALOGGER:</span>
+              </td>-->
+              <td>
+                <form>
+                  <div class="row">
+                    <div class="col-4">
+                      <mat-form-field>
+                        <input
+                          matInput
+                          [(ngModel)]="codeDatalogger"
+                          placeholder="Código Datalogger"
+                          autocomplete="off"
+                          name="codeDatalogger"
+                        />
+                      </mat-form-field>
+                    </div>
+                    <div class="col-4">
+                      <mat-form-field>
+                        <mat-select
+                          id="codeEquipo"
+                          name="codeEquipo"
+                          class="select-css"
+                          [(ngModel)]="codeEquipo"
+                          placeholder="Equipo"
+                          style="
+                            border: 1;
+                            font-weight: 400;
+                            line-height: 1.125;
+                            font-family: Roboto, 'Helvetica Neue', sans-serif;
+                            color: gray;
+                          "
+                        >
+                          <mat-option
+                            *ngFor="let equipo of this.listEquipoCombo"
+                            [value]="equipo.nCodigo"
+                            >{{ equipo.vDescripcion }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-4">
+                      <mat-form-field>
+                        <mat-select
+                          id="codeDistrito"
+                          name="codeDistrito"
+                          class="select-css"
+                          [(ngModel)]="codeDistrito"
+                          placeholder="Distrito"
+                          style="
+                            border: 1;
+                            font-weight: 400;
+                            line-height: 1.125;
+                            font-family: Roboto, 'Helvetica Neue', sans-serif;
+                            color: gray;
+                          "
+                        >
+                          <mat-option
+                            *ngFor="let distrito of this.listDistritoCombo"
+                            [value]="distrito.nCodigo"
+                            >{{ distrito.vDescripcion }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </form>
+              </td>
+              <td style="width: 300px">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    (click)="buscarDataloggers()"
+                  >
+                    Buscar
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-success"
+                    (click)="exportExcel()"
+                  >
+                    Exportar Excel
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    (click)="exportPDF()"
+                  >
+                    Exportar PDF
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <br />
+  </div>
+
+  <div class="header-container">
+    <div class="table-responsive" id="htmlData">
+      <!--<div style="display: none">
+        <br />
+        <br />
+        <div class="text-center">
+          <img [src]="imagePath" alt="logo sedapal" width="200" height="80" />
+        </div>
+        <div class="text-center">
+          <p class="h1">LISTA DE DATALOGGER</p>
+        </div>
+      </div>-->
+      <table
+        id="tabla-parametros"
+        name="tabla-parametros"
+        class="table table-hover issue-tracker"
+        [style.width]="mobileQuery.matches ? '900px' : '100%'"
+      >
+        <thead class="table-head">
+          <tr>
+            <th width="2%" style="border: none">NRO</th>
+            <th width="30%" style="border: none">EQUIPO</th>
+            <th width="10%" style="border: none">SECTOR</th>
+            <th width="16%" style="border: none">COD. DATALOGGER</th>
+            <th width="22%" style="border: none">
+              DESCRIPCI&Oacute;N DATALOGGER
+            </th>
+            <th width="2%" style="border: none">COD. SEDAPAL</th>
+            <th width="10%" style="border: none">ZONA</th>
+            <th width="10%" style="border: none">DISTRITO</th>
+            <th width="10%" style="border: none">ESTADO</th>
+            <th width="10%" style="border: none">INDICADOR</th>
+          </tr>
+        </thead>
+        <tbody class="table-body">
+          <tr *ngFor="let dato of itemsPagination; let i = index">
+            <td width="2%">{{ dato.nro }}</td>
+            <td width="30%">{{ dato.areaBuscarResponse.vCodarea }}</td>
+            <td width="10%">{{ dato.nSector }}</td>
+            <td width="16%">{{ dato.nCoddat }}</td>
+            <td width="22%">{{ dato.vDesdat }}</td>
+            <td width="10%">{{ dato.nCodseg }}</td>
+            <td width="10%">{{ dato.zonaBuscarResponse.vZona }}</td>
+            <td width="10%">{{ dato.distritoBuscarResponse.vDesdistrito }}</td>
+            <td width="10%">{{ dato.estadoBuscarResponse.vEstado }}</td>
+            <td width="10%">{{ dato.indicadorBuscarResponse.vIndicador }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <app-pagination
+      (goPage)="goToPage($event)"
+      (goNext)="onNext()"
+      (goPrev)="onPrev()"
+      [pagesToShow]="6"
+      [page]="page"
+      [perPage]="limit"
+      [count]="total"
+    ></app-pagination>
+  </div>
+
+  <ng-template #imgLoading>
+    <img
+      src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+    />
+  </ng-template>
+</div>
